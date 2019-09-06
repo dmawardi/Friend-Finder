@@ -1,0 +1,23 @@
+{
+  "name": "friend-finder",
+  "version": "1.0.0",
+  "description": "Web Application Development Boot Camp Week 13 : Friend Finder",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmawardi/Friend-Finder.git"
+  },
+  "author": "Dannar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dmawardi/Friend-Finder/issues"
+  },
+  "homepage": "https://github.com/dmawardi/Friend-Finder#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
