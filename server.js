@@ -15,7 +15,7 @@ app.use(express.static('app/public'));
 
 // Handle Routing
 // HTML and API routing references
-// app.use('/api', api);
+app.use('/api', api);
 app.use('/', html);
 
 // Set server to listen to PORT
