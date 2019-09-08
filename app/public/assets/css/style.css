@@ -1,0 +1,16 @@
+.jumbotron {
+    /* text-align: center; */
+}
+
+.titleSubtext {
+    font-size: 30px;
+}
+
+.titleText {
+    font-weight: 500;
+    font-size: 63px;
+}
+
+.form-control {
+    width: 300px;
+}
