@@ -48,7 +48,7 @@ $(document).ready(function () {
     $('#submitButton').on('click', function (event) {
         event.preventDefault();
         // console.log($(this).attr);
-        let results = extractAndResetResults();
+        var results = extractAndResetResults();
         console.log(results);
 
         // If any of the results are default (ie. not selected)
@@ -58,7 +58,9 @@ $(document).ready(function () {
         } else {
             // call modal message with pass
             modalMessage('pass');
-            $.post('/api/friendSubmit', results);
+            $.post('/api/friendSubmit', results, function(){
+                console.log('post success');
+            });
         }
 
         console.log(extractAndResetResults());
