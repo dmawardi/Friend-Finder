@@ -15,7 +15,6 @@ router.get('/friends', function (req, res) {
 
 router.post('/friendSubmit', function (req, res) {
     // Grab new input
-    console.log(req.body);
     data.push(req.body);
 
     // Uses data with newly pushed data to return index of friend match

@@ -1,14 +1,28 @@
 console.log('connected');
 
+// Extract results from form fields
 function extractAndResetResults() {
-    let array = [];
+    // init array
+    let scores = [];
+    // Grab form data
+    let name = $('#surveyName').val();
+    let photo = $('#surveyPhoto').val();
     let selectorIDs = $('select[id*=surveySelect]').find('option:selected');
-    // console.log(selectorIDs);
 
+    // For form selector, push to array scores
     for (let item of selectorIDs) {
-        array.push(item.value);
+        scores.push(item.value);
     }
-    return array;
+
+    // build return JSON
+    surveyAnswers = {
+        "name": name,
+        "photo": photo,
+        "scores": scores
+    }
+
+    // Return
+    return surveyAnswers;
 }
 
 // Shows modal and message depending on parameter status of form submit (default = fail)
@@ -31,7 +45,7 @@ function modalMessage(submitStatus='fail') {
         modalTitle.text('Best Match');
 
         // Add code to calculate and show image
-        
+
         modalMsg.text('{Name of Match}');
     
         modalMsgArea.append(modalMsg);
@@ -44,29 +58,27 @@ function modalMessage(submitStatus='fail') {
 $(document).ready(function () {
     $('select[id*=surveySelect]').on('click', function () {
         // console.log($(this).find('option:selected').val());
-        console.log('clicking on dropdown');
     });
 
     $('#submitButton').on('click', function (event) {
         event.preventDefault();
         // console.log($(this).attr);
         var results = extractAndResetResults();
-        console.log(results);
+        console.log('results',results);
 
         // If any of the results are default (ie. not selected)
-        if (results.includes("Select")) {
+        if (results.scores.includes("Select") && results.name.includes("") && results.photo.includes("")) {
             // Use default fail message as modal message
             modalMessage();
         } else {
             // call modal message with pass
             modalMessage('pass');
-            $.post('/api/friendSubmit', results, function(){
-                console.log('post success');
+            $.post('/api/friendSubmit', results, function(data){
+                // TODO use link to make photo appear
+                console.log("name: "+data.name);
+                console.log("photo: "+data.photo);
             });
         }
-
-        console.log(extractAndResetResults());
-
 
     });
 
