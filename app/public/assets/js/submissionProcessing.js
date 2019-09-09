@@ -5,41 +5,51 @@ var data = require(path.join(__dirname, "../../../data/friends.js"));
 // Accepts data from friend finder submission after new user added
 // Compare new user (last element) to rest of elements and determine closest match
 function calculateDifferenceReturnClosestMatch(data) {
-    differences = [];
+    // Init variables
+    var differences = [];
     // Iterate through data array (minus the final element)
     for (let i = 0; i < data.length-1; i++) {
-        console.log(data[i].scores);
-        // Compare final element to current count element and record difference
-        let difference = calcDifferenceBetwTwoScoreSets(data[data.length-1], data[i]);
-
+        // Compare final element to current count element scores and record difference
+        // console.log(data[data.length-1].scores, data[i].scores);
+        let difference = calcDifferenceBetwTwoScoreSets(data[data.length-1].scores, data[i].scores);
+        console.log(difference);
+        // Push difference between two items to array differences
+        differences.push(difference);
     }
 
+    // Use spread operator to 'spread' array
+    let match = Math.min(...differences);
+    let indexOfMatch = differences.indexOf(match);
+    // Return index of closest match (element with the lowest difference)
+    return indexOfMatch;
 }
 
 // Calculates difference between two choice arrays' number values
 function calcDifferenceBetwTwoScoreSets(element1, element2) {
+    // Init variables
     var differenceArray = [];
+    let difference;
+    // For each element in both arrays
     for (let i = 0; i < element1.length; i++) {
+        // If/else statement to reduce larger number by smaller number
         if (element1[i] >= element2[i]) {
-            let difference = element1[i] - element2[i];
+            difference = element1[i] - element2[i];
         } else {
-            let difference = element2[i] - element1[i];
+            difference = element2[i] - element1[i];
         }
+        // Push resulting difference to differenceArray
         differenceArray.push(difference);
     }
 
+    // Init sum as 0
     let sum = 0;
-    // Iterate through array using sum function, use 0 as default value
+    // Iterate through array summing items
     for (let i = 0; i < differenceArray.length; i++) {
         sum = sum + differenceArray[i];
-        console.log('difference array item\n',differenceArray[i]);
     }
 
-    console.log('difference sum');
-    console.log(sum);
-
     // return difference sum
-    return differenceArray
+    return sum
 }
 
 function findHighest(array) {
