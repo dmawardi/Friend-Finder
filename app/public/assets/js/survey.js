@@ -29,7 +29,9 @@ function modalMessage(submitStatus='fail') {
 
     } else if (submitStatus == 'pass') {
         modalTitle.text('Best Match');
+
         // Add code to calculate and show image
+        
         modalMsg.text('{Name of Match}');
     
         modalMsgArea.append(modalMsg);

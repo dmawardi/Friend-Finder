@@ -1,24 +1,23 @@
 var path = require('path');
-var data = require(path.join(__dirname, "../../../data/friends.js"));
-
 
 // Accepts data from friend finder submission after new user added
 // Compare new user (last element) to rest of elements and determine closest match
 function calculateDifferenceReturnClosestMatch(data) {
     // Init variables
     var differences = [];
+    console.log(data[data.length-1]);
     // Iterate through data array (minus the final element)
     for (let i = 0; i < data.length-1; i++) {
         // Compare final element to current count element scores and record difference
         // console.log(data[data.length-1].scores, data[i].scores);
         let difference = calcDifferenceBetwTwoScoreSets(data[data.length-1].scores, data[i].scores);
-        console.log(difference);
         // Push difference between two items to array differences
         differences.push(difference);
     }
 
-    // Use spread operator to 'spread' array
+    // Use spread operator to 'spread' array and use function to find minimum
     let match = Math.min(...differences);
+    // Grab index of lowest element
     let indexOfMatch = differences.indexOf(match);
     // Return index of closest match (element with the lowest difference)
     return indexOfMatch;
@@ -52,10 +51,4 @@ function calcDifferenceBetwTwoScoreSets(element1, element2) {
     return sum
 }
 
-function findHighest(array) {
-    for (let item of array) {
-        console.log(item);
-    }
-}
-
-calculateDifferenceReturnClosestMatch(data);
+module.exports = calculateDifferenceReturnClosestMatch;

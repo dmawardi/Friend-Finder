@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var data = require(path.join(__dirname, "../data/friends.js"));
-var process = require(path.join(__dirname, "../public/assets/js/submissionProcessing.js"));
+var submissionProcessing = require(path.join(__dirname, "../public/assets/js/submissionProcessing.js"));
 
 // Sets up the Express app to handle data parsing
 router.use(express.urlencoded({ extended: true }));
@@ -18,10 +18,11 @@ router.post('/friendSubmit', function (req, res) {
     console.log(req.body);
     data.push(req.body);
 
+    // Uses data with newly pushed data to return index of friend match
+    let indexOfMatch = submissionProcessing(data);
 
     // Send back match
-    // res.json();
-    res.json(req.body);
+    res.json(data[indexOfMatch]);
 });
 
 module.exports = router;
