@@ -1,5 +1,3 @@
-console.log('connected');
-
 // Extract results from form fields
 function extractAndResetResults() {
     // init array
@@ -41,7 +39,9 @@ function modalMessage(submitStatus='fail', data=null) {
         modalMsgArea.append(modalMsg);
         $('#friendReturn').modal('show');
 
+        // Else if a pass status is detected
     } else if (submitStatus == 'pass') {
+        // Update modal title
         modalTitle.text('Best Match');
 
         // Init jquery elements
@@ -66,19 +66,16 @@ function modalMessage(submitStatus='fail', data=null) {
         $('#friendReturn').modal('show');
     }
 
-
 }
 
+// When document is ready
 $(document).ready(function () {
-    $('select[id*=surveySelect]').on('click', function () {
-        // console.log($(this).find('option:selected').val());
-    });
-
+    
+    // Submission button handler
     $('#submitButton').on('click', function (event) {
+        // Prevent default form submission behaviour
         event.preventDefault();
-        // console.log($(this).attr);
         var results = extractAndResetResults();
-        console.log('results',results);
 
         // If any of the results are default (ie. not selected)
         if (results.scores.includes("Select") && results.name.includes("") && results.photo.includes("")) {
@@ -87,13 +84,9 @@ $(document).ready(function () {
         } else {
             // call modal message with pass
             $.post('/api/friendSubmit', results, function(data){
-                // TODO use link to make photo appear
-                console.log("name: "+data.name);
-                console.log("photo: "+data.photo);
-                
+                // Sends data to Modal message to display match 
                 modalMessage('pass', data);
                 
-
             });
         }
 
