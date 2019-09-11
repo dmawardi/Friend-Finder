@@ -26,7 +26,7 @@ function extractAndResetResults() {
 }
 
 // Shows modal and message depending on parameter status of form submit (default = fail)
-function modalMessage(submitStatus='fail') {
+function modalMessage(submitStatus='fail', data=null) {
     let modalMsgArea = $('#modalMsgArea');
     let modalMsg = $('<p>');
     let modalTitle = $('#modalTitle');
@@ -44,11 +44,25 @@ function modalMessage(submitStatus='fail') {
     } else if (submitStatus == 'pass') {
         modalTitle.text('Best Match');
 
-        // Add code to calculate and show image
+        // Init jquery elements
+        let div = $('<div>');
+        let img = $('<img>');
+        let p = $('<p>');
 
-        modalMsg.text('{Name of Match}');
+        // Create text and image content
+        p.html(data.name);
+        img.attr('src', data.photo);
+        // Add bootstrap classes
+        div.addClass('container');
+        img.addClass('img-thumbnail');
+
+        // Append text and image to div
+        div.append(p);
+        div.append(img);
+        // Appendf div to modal body
+        modalMsgArea.append(div);
     
-        modalMsgArea.append(modalMsg);
+        // Show modal
         $('#friendReturn').modal('show');
     }
 
@@ -72,11 +86,14 @@ $(document).ready(function () {
             modalMessage();
         } else {
             // call modal message with pass
-            modalMessage('pass');
             $.post('/api/friendSubmit', results, function(data){
                 // TODO use link to make photo appear
                 console.log("name: "+data.name);
                 console.log("photo: "+data.photo);
+                
+                modalMessage('pass', data);
+                
+
             });
         }
 
